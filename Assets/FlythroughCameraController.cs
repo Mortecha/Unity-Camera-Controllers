@@ -4,25 +4,37 @@ using UnityEngine;
 
 public class FlythroughCameraController : MonoBehaviour
 {
-    public float movementSpeed = 20.0f;
+    public float movementSpeed = 0.5f;
     public float rotationSpeed = 720.0f;
+    public float lerpSpeed = 20.0f;
+
+    private Vector3 currentPosition;
+    private Vector3 targetPosition;
+
+    void Start()
+    {
+        currentPosition = targetPosition = transform.position;
+    }
 
     void Update()
     {
+        currentPosition = transform.position;
         if (Input.GetKey(KeyCode.W))
-            transform.position += transform.forward * movementSpeed * Time.deltaTime;
+            targetPosition += transform.forward * movementSpeed;
         else if (Input.GetKey(KeyCode.S))
-            transform.position -= transform.forward * movementSpeed * Time.deltaTime;
+            targetPosition -= transform.forward * movementSpeed;
 
         if (Input.GetKey(KeyCode.A))
-            transform.position -= transform.right * movementSpeed * Time.deltaTime;
+            targetPosition -= transform.right * movementSpeed;
         else if (Input.GetKey(KeyCode.D))
-            transform.position += transform.right * movementSpeed * Time.deltaTime;
+            targetPosition += transform.right * movementSpeed;
 
         if (Input.GetKey(KeyCode.Q))
-            transform.position -= transform.up * movementSpeed * Time.deltaTime;
+            targetPosition -= transform.up * movementSpeed;
         else if (Input.GetKey(KeyCode.E))
-            transform.position += transform.up * movementSpeed * Time.deltaTime;
+            targetPosition += transform.up * movementSpeed;
+
+        transform.position = Vector3.Lerp(currentPosition, targetPosition, lerpSpeed * Time.deltaTime);
 
         if (Input.GetMouseButton(1) || Input.GetMouseButton(2))
         {
@@ -33,7 +45,6 @@ public class FlythroughCameraController : MonoBehaviour
             localEulerAngles.x -= y;
             localEulerAngles.y += x;
             transform.localEulerAngles = localEulerAngles;
-            
         }
     }
 }
