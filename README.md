@@ -9,4 +9,4 @@ Contains:
     - Ideal for top down shooting, it finds the central point between the target object, usually the player and the mouse cursor, giving the player a good view of what they are shooting at, it's also helpful for allowing the player to look at areas of interest from this perspective. 
 
 - Tidally Locked Orbital Camera Controller:
-    - This controller rotates around a target object allowing the user to view all angles of it. ideal for showcasing individual assets or as a preview of a planet or space craft. 
+    - This camera controller rotates around a target object while always facing it allowing the user to view all angles of it. ideal for showcasing individual assets or as a preview of a planet or space craft. 
