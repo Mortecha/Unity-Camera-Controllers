@@ -23,6 +23,11 @@ public class TidallyLockedOrbitalCameraController : MonoBehaviour
             xRotation += Input.GetAxis("Mouse X") * rotationSpeed;
             yRotation += Input.GetAxis("Mouse Y") * rotationSpeed;
 
+            if (yRotation > 90.0f)
+                yRotation = 90.0f;
+            if (yRotation < -90.0f)
+                yRotation = -90.0f;
+
             transform.rotation = Quaternion.Euler(0, xRotation, 0) * Quaternion.Euler(-yRotation, 0, 0);
             transform.position = target.transform.position - transform.forward * cameraZoom;
         }
