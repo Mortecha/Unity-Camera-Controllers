@@ -6,14 +6,20 @@ public class TidallyLockedOrbitalCameraController : MonoBehaviour
 {
     public GameObject target;
     public float rotationSpeed = 8.0f;
-    public float cameraZoom = 10.0f;
+
+    public float initialZoomDistance = 10.0f;
+    private float zoomDistance;
+    public float zoomSpeed = 0.5f;
+    public float minZoomDistance = 2.0f;
+    public float maxZoomDistance = 20.0f;
 
     private float xRotation = 0;
     private float yRotation = 0;
 
     void Start()
     {
-        transform.position = target.transform.position - transform.forward * cameraZoom;
+        zoomDistance = initialZoomDistance;
+        transform.position = target.transform.position - transform.forward * zoomDistance;
     }
 
     void Update()
@@ -29,7 +35,32 @@ public class TidallyLockedOrbitalCameraController : MonoBehaviour
                 yRotation = -90.0f;
 
             transform.rotation = Quaternion.Euler(0, xRotation, 0) * Quaternion.Euler(-yRotation, 0, 0);
-            transform.position = target.transform.position - transform.forward * cameraZoom;
         }
+
+        float scrollDirection = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollDirection > 0f)
+        {
+            if(zoomDistance > minZoomDistance && zoomDistance - zoomSpeed >= minZoomDistance)
+            {
+                zoomDistance -= zoomSpeed;
+            }
+            else
+            {
+                zoomDistance = minZoomDistance;
+            }
+        }
+        else if (scrollDirection < 0f && zoomDistance + zoomSpeed <= maxZoomDistance)
+        {
+            if(zoomDistance < maxZoomDistance)
+            {
+                zoomDistance += zoomSpeed;
+            }
+            else
+            {
+                zoomDistance = maxZoomDistance;
+            }
+        }
+
+        transform.position = target.transform.position - transform.forward * zoomDistance;
     }
 }
