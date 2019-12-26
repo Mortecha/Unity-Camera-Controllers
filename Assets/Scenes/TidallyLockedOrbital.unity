@@ -312,6 +312,8 @@ MonoBehaviour:
   target: {fileID: 1214857615}
   rotationSpeed: 8
   cameraZoom: 10
+  yRotationMin: 1
+  yRotationMax: 1
 --- !u!1 &429858965
 GameObject:
   m_ObjectHideFlags: 0
